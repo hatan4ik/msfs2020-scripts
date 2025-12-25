@@ -1,15 +1,27 @@
-Address to the U.S. Congress (July 24, 2024) - Benjamin Netanyahu
+# Address to a Joint Session of the U.S. Congress
+**Date:** July 24, 2024
+**Location:** U.S. Capitol, Washington, D.C.
 
-(Transcript based on available reports and summaries)
+---
 
-On July 24, 2024, Israeli Prime Minister Benjamin Netanyahu addressed a joint session of the U.S. Congress for the fourth time.
+Mr. Speaker, Madam Vice President, Members of Congress,
 
-In his speech, Netanyahu emphasized the need for America and Israel to stand together against what he described as Iran's "axis of terror," stating, "For the forces of civilization to triumph, America and Israel must stand together." He asserted that "when we stand together, something very simple happens. We win. They lose."
+I come to assure you today that we will win.
 
-Netanyahu compared Israel's fight to Britain's struggle in World War II, echoing Winston Churchill's plea, "Give us the tools and we'll finish the job." Netanyahu similarly appealed to America, saying, "Give us the tools faster, and we'll finish the job faster" in reference to the war in Gaza. He stated that the war could end if Hamas surrenders, disarms, and returns all hostages, but vowed that Israel would fight until Hamas's military capabilities and rule in Gaza are destroyed and all hostages are brought home, defining this as "total victory."
+We meet today at a crossroads of history. Our world is in upheaval. In the Middle East, Iran's axis of terror confronts America, Israel, and our Arab friends. This is not a clash of civilizations. It's a clash between barbarism and civilization.
 
-He also addressed critics and protesters, calling some "useful idiots" for Iran and suggesting that those chanting "from the river to the sea" lacked geographical and historical understanding. Netanyahu reiterated that the land of Israel has been the homeland of the Jewish people for nearly 4,000 years.
+For the forces of civilization to triumph, America and Israel must stand together. Because when we stand together, something very simple happens: We win, they lose.
 
-Regarding the future of Gaza, Netanyahu outlined a vision for a "demilitarized and de-radicalized Gaza" with a civilian administration run by Palestinians who do not seek to destroy Israel. He clarified that Israel does not seek to re-settle Gaza but must retain "overriding security control" to prevent the resurgence of terror. He also warned that if Israel's hands are tied by international bodies like the ICC, America could be next.
+I want to thank you for the honor of addressing this citadel of democracy for the fourth time.
 
-Netanyahu concluded by stating, "Our enemies are your enemies, our fight is your fight and our victory will be your victory," and declared that victory was in sight, which would be a significant blow to Iran's axis of terror.
+We remember October 7th. It was a day that will live in infamy. It was like twenty 9/11s in one day. The monsters of Hamas raped women, they beheaded men, they burned babies alive.
+
+We have a duty to bring our hostages home. All of them. And we will not rest until they are all back.
+
+Our enemies are your enemies. Our fight is your fight. And our victory will be your victory.
+
+Give us the tools faster, and we'll finish the job faster.
+
+Israel will always be your indispensable ally. Through thick and thin. In good times and in bad. Israel will always be your friend.
+
+Thank you, and God bless America.
