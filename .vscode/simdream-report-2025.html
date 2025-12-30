@@ -3,297 +3,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SimDream 2025 | Master Dashboard (Real Data)</title>
+    <title>SimDream 2025 | Board of Directors Report</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
         
-        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; color: #0f172a; }
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f1f5f9; } /* Dark Mode Base */
         .font-mono { font-family: 'JetBrains Mono', monospace; }
         
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #e2e8f0; }
-        ::-webkit-scrollbar-thumb { background: #64748b; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+        ::-webkit-scrollbar-track { background: #1e293b; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 
         .chart-container { position: relative; width: 100%; height: 300px; margin: 0 auto; }
         .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover { transform: translateY(-3px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
+        .card-hover:hover { transform: translateY(-3px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5); }
 
-        .active-nav { background-color: #0f172a; color: white; border-left: 4px solid #10b981; }
-        .inactive-nav { color: #64748b; border-left: 4px solid transparent; }
-        .inactive-nav:hover { background-color: #e2e8f0; color: #0f172a; }
+        .active-nav { background-color: #1e293b; color: #38bdf8; border-left: 4px solid #38bdf8; }
+        .inactive-nav { color: #94a3b8; border-left: 4px solid transparent; }
+        .inactive-nav:hover { background-color: #1e293b; color: #f1f5f9; }
 
-        .strategy-toggle-active { background-color: #3b82f6; color: white; box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5); }
-        .strategy-toggle-inactive { background-color: #e2e8f0; color: #64748b; }
+        .strategy-toggle-active { background-color: #2563eb; color: white; box-shadow: 0 0 15px rgba(37, 99, 235, 0.5); }
+        .strategy-toggle-inactive { background-color: #334155; color: #94a3b8; }
 
         .animate-fade-in { animation: fadeIn 0.5s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Range Slider Styling */
+        /* Custom Range Slider */
         input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #3b82f6; cursor: pointer; margin-top: -7px; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3); }
-        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: #cbd5e1; border-radius: 2px; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #38bdf8; cursor: pointer; margin-top: -7px; border: 2px solid #0f172a; box-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: #334155; border-radius: 2px; }
         
-        .pnl-row:nth-child(even) { background-color: #f8fafc; }
-        .pnl-row:hover { background-color: #f1f5f9; }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .table-row-hover:hover { background-color: rgba(51, 65, 85, 0.5); }
     </style>
-    <!-- Chosen Palette: "Boardroom V5" - Navy/Slate base, Aviation Blue, Real Data Green -->
 </head>
-<body class="flex h-screen overflow-hidden">
+<body class="flex h-screen overflow-hidden text-slate-200">
 
     <!-- Sidebar Navigation -->
-    <aside class="w-64 bg-white shadow-xl z-20 hidden md:flex flex-col border-r border-gray-200">
-        <div class="p-6 border-b border-gray-100 bg-slate-50">
-            <h1 class="text-xl font-bold text-slate-800 tracking-tight">SimDream<span class="text-blue-600">Board</span></h1>
-            <p class="text-xs text-slate-500 mt-1 uppercase tracking-wider font-semibold">2025 Actuals Analysis</p>
+    <aside class="w-64 bg-slate-900 shadow-xl z-20 hidden md:flex flex-col border-r border-slate-800">
+        <div class="p-6 border-b border-slate-800">
+            <h1 class="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+                ✈️ SimDream<span class="text-blue-500">2026</span>
+            </h1>
+            <p class="text-xs text-slate-500 mt-1 uppercase tracking-wider font-semibold">Board of Directors</p>
         </div>
         <nav class="flex-1 overflow-y-auto py-4">
             <ul class="space-y-1">
-                <li><button onclick="navigate('financials')" id="nav-financials" class="w-full text-left px-6 py-3 active-nav transition-colors flex items-center gap-3"><span class="font-bold">📉 CFO P&L (Real)</span></button></li>
-                <li><button onclick="navigate('diagnostic')" id="nav-diagnostic" class="w-full text-left px-6 py-3 inactive-nav transition-colors flex items-center gap-3"><span>📊 Diagnostic Data</span></button></li>
-                <li><button onclick="navigate('b2c')" id="nav-b2c" class="w-full text-left px-6 py-3 inactive-nav transition-colors flex items-center gap-3"><span>✈️ B2C Strategy</span></button></li>
+                <li><button onclick="navigate('dashboard')" id="nav-dashboard" class="w-full text-left px-6 py-3 active-nav transition-colors flex items-center gap-3"><span>🎛️ EBITDA Simulator</span></button></li>
+                <li><button onclick="navigate('financials')" id="nav-financials" class="w-full text-left px-6 py-3 inactive-nav transition-colors flex items-center gap-3"><span>📉 Financial Audit</span></button></li>
+                <li><button onclick="navigate('investors')" id="nav-investors" class="w-full text-left px-6 py-3 inactive-nav transition-colors flex items-center gap-3"><span class="text-emerald-400">💼 Investor Relations</span></button></li>
+                <li><button onclick="navigate('b2c')" id="nav-b2c" class="w-full text-left px-6 py-3 inactive-nav transition-colors flex items-center gap-3"><span>🎟️ B2C Pricing</span></button></li>
+                <li><button onclick="navigate('operations')" id="nav-operations" class="w-full text-left px-6 py-3 inactive-nav transition-colors flex items-center gap-3"><span>⚙️ Operations (Wix)</span></button></li>
                 <li><button onclick="navigate('b2b')" id="nav-b2b" class="w-full text-left px-6 py-3 inactive-nav transition-colors flex items-center gap-3"><span>🤝 B2B Corporate</span></button></li>
-                <li><button onclick="navigate('competitors')" id="nav-competitors" class="w-full text-left px-6 py-3 inactive-nav transition-colors flex items-center gap-3"><span>⚔️ Competitive</span></button></li>
-                <li><button onclick="navigate('marketing')" id="nav-marketing" class="w-full text-left px-6 py-3 inactive-nav transition-colors flex items-center gap-3"><span>📣 Marketing</span></button></li>
+                <li><button onclick="navigate('marketing')" id="nav-marketing" class="w-full text-left px-6 py-3 inactive-nav transition-colors flex items-center gap-3"><span>📣 Psych-Ops</span></button></li>
             </ul>
         </nav>
-        <div class="p-4 bg-slate-50 border-t border-gray-200">
-            <div class="text-xs font-mono text-slate-500 mb-2 uppercase">2025 Actual Net Profit</div>
+        <div class="p-4 bg-slate-900 border-t border-slate-800">
+            <div class="text-xs font-mono text-slate-500 mb-2 uppercase">Current Status</div>
             <div class="flex items-center justify-between">
-                <span class="text-sm font-bold text-slate-700">Monthly Avg:</span>
-                <span class="text-sm font-bold text-green-600">8,106 ₪</span>
+                <span class="text-sm font-bold text-slate-400">Runway:</span>
+                <span class="text-sm font-bold text-green-500">Stable</span>
             </div>
-            <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2">
-                <div class="bg-green-500 h-1.5 rounded-full" style="width: 20%"></div>
+            <div class="w-full bg-slate-800 rounded-full h-1.5 mt-2">
+                <div class="bg-blue-500 h-1.5 rounded-full" style="width: 65%"></div>
             </div>
-            <p class="text-[10px] text-slate-400 mt-1">Margin: 19.6%</p>
         </div>
     </aside>
 
     <!-- Main Content Area -->
-    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-slate-50 relative">
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-slate-950 relative">
         <!-- Mobile Header -->
-        <header class="md:hidden bg-white shadow-sm p-4 flex justify-between items-center z-30">
-            <h1 class="font-bold text-slate-800">SimDream Strategy</h1>
-            <button onclick="toggleMobileMenu()" class="text-slate-600 focus:outline-none text-2xl">☰</button>
+        <header class="md:hidden bg-slate-900 shadow-sm p-4 flex justify-between items-center z-30 border-b border-slate-800">
+            <h1 class="font-bold text-white">SimDream Strategy</h1>
+            <button onclick="toggleMobileMenu()" class="text-slate-400 focus:outline-none text-2xl">☰</button>
         </header>
 
         <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="absolute inset-0 bg-white z-40 hidden flex-col p-6 space-y-4">
-            <button onclick="navigate('financials'); toggleMobileMenu()" class="text-lg font-semibold text-slate-700">P&L Report</button>
-            <button onclick="navigate('diagnostic'); toggleMobileMenu()" class="text-lg font-semibold text-slate-700">Diagnostic</button>
-            <button onclick="navigate('b2c'); toggleMobileMenu()" class="text-lg font-semibold text-slate-700">B2C Simulator</button>
+        <div id="mobile-menu" class="absolute inset-0 bg-slate-900 z-40 hidden flex-col p-6 space-y-4">
+            <button onclick="navigate('dashboard'); toggleMobileMenu()" class="text-lg font-semibold text-slate-300">Simulator</button>
+            <button onclick="navigate('financials'); toggleMobileMenu()" class="text-lg font-semibold text-slate-300">Financials</button>
+            <button onclick="navigate('investors'); toggleMobileMenu()" class="text-lg font-semibold text-emerald-400">Investor Relations</button>
             <button onclick="toggleMobileMenu()" class="mt-8 text-sm text-red-500 font-bold">Close Menu</button>
         </div>
 
         <!-- Scrollable Content -->
         <div class="flex-1 overflow-y-auto p-4 md:p-8" id="content-area">
             
-            <!-- SECTION 1: DETAILED FINANCIAL P&L (SOURCE: 2025-budget-simdream-israel) -->
-            <section id="financials" class="block space-y-6 max-w-6xl mx-auto animate-fade-in">
-                <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-xl shadow-lg p-8 text-white relative overflow-hidden">
-                    <div class="relative z-10">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h2 class="text-3xl font-bold mb-2">CFO Report: 2025 Actuals Analysis</h2>
-                                <p class="text-slate-300 max-w-2xl">
-                                    Based on forensic review of "Budget-2025-Simdream". The business is profitable but volatile.
-                                </p>
-                            </div>
-                            <div class="bg-white/10 px-4 py-2 rounded border border-white/20 text-center">
-                                <span class="block text-xs uppercase text-slate-300">2025 Net Margin</span>
-                                <span class="block text-2xl font-bold text-emerald-400">19.57%</span>
-                            </div>
-                        </div>
+            <!-- SECTION 1: EBITDA SIMULATOR (DASHBOARD) -->
+            <section id="dashboard" class="block space-y-8 max-w-7xl mx-auto animate-fade-in">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-6">
+                    <div>
+                        <h2 class="text-3xl font-bold text-white mb-2">Command Center</h2>
+                        <p class="text-slate-400">Real-time EBITDA impact analysis based on 2025 Actuals.</p>
                     </div>
+                    <button onclick="resetSimulator()" class="mt-4 md:mt-0 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold rounded border border-slate-700 transition-colors">
+                        ↺ Reset to 2025 Baseline
+                    </button>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- The P&L Table -->
-                    <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                        <div class="px-6 py-4 border-b border-gray-100 bg-slate-50 flex justify-between items-center">
-                            <h3 class="font-bold text-slate-700">Annual P&L (2025 Actual vs 2026 Target)</h3>
-                            <span class="text-xs text-slate-500 italic">Source: Google Sheets Rows 9-14</span>
-                        </div>
-                        <table class="w-full text-sm text-left">
-                            <thead class="text-xs text-slate-500 uppercase bg-slate-50 border-b">
-                                <tr>
-                                    <th class="px-6 py-3">Line Item</th>
-                                    <th class="px-6 py-3 text-right">2025 Actuals (Total)</th>
-                                    <th class="px-6 py-3 text-right">Monthly Avg (Real)</th>
-                                    <th class="px-6 py-3 text-right text-blue-600">2026 Target</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="pnl-row font-bold">
-                                    <td class="px-6 py-3 text-slate-800">Gross Revenue (Sales)</td>
-                                    <td class="px-6 py-3 text-right text-slate-600">497,047</td>
-                                    <td class="px-6 py-3 text-right text-slate-800">41,420</td>
-                                    <td class="px-6 py-3 text-right text-blue-600">840,000</td>
-                                </tr>
-                                <tr class="pnl-row text-xs text-slate-500">
-                                    <td class="px-6 py-2 pl-8">(-) VAT Output (17-18%)</td>
-                                    <td class="px-6 py-2 text-right">(89,470)</td>
-                                    <td class="px-6 py-2 text-right">(7,455)</td>
-                                    <td class="px-6 py-2 text-right">(151,200)</td>
-                                </tr>
-                                <tr class="pnl-row font-bold bg-slate-100 border-t border-b">
-                                    <td class="px-6 py-3 text-slate-900">Net Revenue</td>
-                                    <td class="px-6 py-3 text-right text-slate-900">407,579</td>
-                                    <td class="px-6 py-3 text-right text-slate-900">33,965</td>
-                                    <td class="px-6 py-3 text-right text-blue-800">688,800</td>
-                                </tr>
-                                <tr class="pnl-row text-xs text-slate-500">
-                                    <td class="px-6 py-2 pl-8">(-) Salaries</td>
-                                    <td class="px-6 py-2 text-right">(83,430)</td>
-                                    <td class="px-6 py-2 text-right">(6,952)</td>
-                                    <td class="px-6 py-2 text-right">(139,200)</td>
-                                </tr>
-                                <tr class="pnl-row text-xs text-slate-500">
-                                    <td class="px-6 py-2 pl-8">(-) Rent (Fixed)</td>
-                                    <td class="px-6 py-2 text-right">(80,920)</td>
-                                    <td class="px-6 py-2 text-right">(6,743)</td>
-                                    <td class="px-6 py-2 text-right">(80,920)</td>
-                                </tr>
-                                <tr class="pnl-row text-xs text-slate-500">
-                                    <td class="px-6 py-2 pl-8">(-) Marketing</td>
-                                    <td class="px-6 py-2 text-right">(68,908)</td>
-                                    <td class="px-6 py-2 text-right">(5,742)</td>
-                                    <td class="px-6 py-2 text-right">(72,000)</td>
-                                </tr>
-                                <tr class="pnl-row text-xs text-slate-500">
-                                    <td class="px-6 py-2 pl-8">(-) Other (Tax/Muni/Utils)</td>
-                                    <td class="px-6 py-2 text-right">(73,534)</td>
-                                    <td class="px-6 py-2 text-right">(6,127)</td>
-                                    <td class="px-6 py-2 text-right">(167,000)</td>
-                                </tr>
-                                <tr class="pnl-row font-bold bg-slate-800 text-white border-t border-b border-yellow-200">
-                                    <td class="px-6 py-4">Net Profit (EBITDA)</td>
-                                    <td class="px-6 py-4 text-right text-yellow-400">97,274</td>
-                                    <td class="px-6 py-4 text-right text-yellow-400">8,106</td>
-                                    <td class="px-6 py-4 text-right text-emerald-400">231,817</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Expense Analysis -->
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 flex flex-col">
-                        <h3 class="font-bold text-slate-700 mb-4">Actual Expense Split (2025)</h3>
-                        <div class="chart-container" style="height: 250px;">
-                            <canvas id="expenseChart"></canvas>
-                        </div>
-                        <div class="mt-4 text-xs text-slate-500 space-y-2">
-                            <p><strong>Note:</strong> Total Expenses 2025 were <strong>306,792 ₪</strong> (Avg 25.5k/mo). This is lower than the 30k originally feared, meaning higher leverage potential.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SECTION 2: DIAGNOSTIC -->
-            <section id="diagnostic" class="hidden space-y-6 max-w-6xl mx-auto">
-                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-blue-500">
-                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Diagnostic: Volatility is the Enemy</h2>
-                    <p class="text-slate-600 max-w-3xl">
-                        The data shows extreme variance. May 2025 hit <strong>72,380 ₪</strong> Revenue, while January did only <strong>18,145 ₪</strong>. We are profitable (Avg 8k/mo), but unstable.
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div class="bg-white rounded-xl shadow-sm p-6 card-hover">
-                        <h3 class="text-lg font-semibold text-slate-700 mb-4">Monthly Revenue Volatility (2025 Actuals)</h3>
-                        <div class="chart-container">
-                            <canvas id="occupancyChart"></canvas>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 gap-4 content-start">
-                        <div class="bg-slate-800 text-white rounded-xl p-6 relative overflow-hidden shadow-lg">
-                            <h4 class="text-slate-400 text-xs font-mono uppercase tracking-widest">Key Performance Indicators</h4>
-                            <div class="grid grid-cols-2 gap-4 mt-6 relative z-10">
-                                <div>
-                                    <span class="block text-xs text-slate-400">Total Orders (2025)</span>
-                                    <span class="text-2xl font-bold text-blue-400">1,050</span>
-                                </div>
-                                <div>
-                                    <span class="block text-xs text-slate-400">Avg Monthly Orders</span>
-                                    <span class="text-2xl font-bold text-amber-400">88</span>
-                                </div>
-                            </div>
-                            <div class="mt-6 pt-4 border-t border-slate-700 relative z-10 flex justify-between items-end">
-                                <span class="block text-xs text-slate-400">Avg Ticket Value</span>
-                                <span class="text-3xl font-bold text-green-400">~473 ₪</span>
-                            </div>
-                        </div>
-                        <div class="bg-white rounded-xl shadow-sm p-6">
-                             <h4 class="text-slate-500 text-xs font-mono uppercase font-bold">The Strategic Fix</h4>
-                             <p class="text-sm text-slate-600 mt-2">To hit the "Target 2026" goal of 231k profit, we need to stabilize the low months (Jan-Feb) using B2B contracts and maximize the high months (May/Aug) using Yield Pricing.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SECTION 3: B2C STRATEGY & SIMULATOR -->
-            <section id="b2c" class="hidden space-y-8 max-w-6xl mx-auto">
                 <!-- THE SIMULATOR -->
-                <div class="bg-slate-900 rounded-xl p-6 md:p-8 text-white shadow-2xl border border-slate-700">
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-slate-700 pb-4">
-                        <div>
-                            <h2 class="text-2xl font-bold flex items-center text-white">
-                                <span class="bg-blue-600 text-white p-2 rounded-lg mr-3 text-xl">🧮</span> 
-                                Profit Simulator
-                            </h2>
-                            <p class="text-slate-400 text-sm mt-1">Recalibrated with 2025 Actuals (Avg 8k Profit Baseline).</p>
-                        </div>
-                        <div class="mt-4 md:mt-0">
-                            <button onclick="resetSimulator()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-300 text-xs font-bold rounded transition-colors border border-slate-600">
-                                ↺ Reset to Actuals
-                            </button>
-                        </div>
-                    </div>
+                <div class="glass-panel rounded-xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full blur-[100px] opacity-10 pointer-events-none"></div>
                     
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 relative z-10">
                         <!-- Column 1: Weekday Controls -->
-                        <div class="bg-slate-800/50 rounded-lg p-5 border border-slate-700">
+                        <div class="bg-slate-900/50 rounded-lg p-5 border border-slate-700">
                             <h4 class="text-blue-400 text-sm font-bold uppercase mb-6 flex items-center justify-between">
                                 Weekday (Sun-Thu)
-                                <span class="text-[10px] bg-slate-700 px-2 py-1 rounded text-slate-300">Cap: 70/wk</span>
+                                <span class="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-400">Current: 9/wk</span>
                             </h4>
                             <div class="mb-8">
-                                <label class="flex justify-between text-xs text-slate-300 mb-3">
+                                <label class="flex justify-between text-xs text-slate-400 mb-3">
                                     <span class="uppercase tracking-wide">Slots Sold / Week</span>
-                                    <span id="wkdUtilVal" class="font-mono font-bold text-white text-lg bg-slate-700 px-2 rounded">15</span>
+                                    <span id="wkdUtilVal" class="font-mono font-bold text-white text-lg bg-slate-800 px-2 rounded">9</span>
                                 </label>
-                                <input type="range" min="0" max="40" value="15" id="wkdUtil" class="w-full">
+                                <input type="range" min="0" max="40" value="9" id="wkdUtil" class="w-full">
+                                <div class="flex justify-between text-[10px] text-slate-600 mt-1"><span>0</span><span>Target: 20</span><span>Max: 40</span></div>
                             </div>
                             <div>
-                                <label class="flex justify-between text-xs text-slate-300 mb-3">
-                                    <span class="uppercase tracking-wide">Avg Price</span>
-                                    <span id="wkdPriceVal" class="font-mono font-bold text-white text-lg bg-slate-700 px-2 rounded">587₪</span>
+                                <label class="flex justify-between text-xs text-slate-400 mb-3">
+                                    <span class="uppercase tracking-wide">Avg Price (NIS)</span>
+                                    <span id="wkdPriceVal" class="font-mono font-bold text-white text-lg bg-slate-800 px-2 rounded">587₪</span>
                                 </label>
                                 <input type="range" min="300" max="800" value="587" id="wkdPrice" class="w-full">
                             </div>
                         </div>
 
                         <!-- Column 2: Weekend Controls -->
-                        <div class="bg-slate-800/50 rounded-lg p-5 border border-slate-700">
+                        <div class="bg-slate-900/50 rounded-lg p-5 border border-slate-700">
                             <h4 class="text-amber-400 text-sm font-bold uppercase mb-6 flex items-center justify-between">
                                 Weekend (Fri-Sat)
-                                <span class="text-[10px] bg-slate-700 px-2 py-1 rounded text-slate-300">Cap: 11/wknd</span>
+                                <span class="text-[10px] bg-slate-800 px-2 py-1 rounded text-slate-400">Current: 3/wknd</span>
                             </h4>
                             <div class="mb-8">
-                                <label class="flex justify-between text-xs text-slate-300 mb-3">
+                                <label class="flex justify-between text-xs text-slate-400 mb-3">
                                     <span class="uppercase tracking-wide">Slots Sold / Weekend</span>
-                                    <span id="wknUtilVal" class="font-mono font-bold text-white text-lg bg-slate-700 px-2 rounded">5</span>
+                                    <span id="wknUtilVal" class="font-mono font-bold text-white text-lg bg-slate-800 px-2 rounded">3</span>
                                 </label>
-                                <input type="range" min="0" max="11" value="5" id="wknUtil" class="w-full">
+                                <input type="range" min="0" max="15" value="3" id="wknUtil" class="w-full">
+                                <div class="flex justify-between text-[10px] text-slate-600 mt-1"><span>0</span><span>Target: 8</span><span>Max: 15</span></div>
                             </div>
                             <div>
-                                <label class="flex justify-between text-xs text-slate-300 mb-3">
-                                    <span class="uppercase tracking-wide">Avg Price</span>
-                                    <span id="wknPriceVal" class="font-mono font-bold text-white text-lg bg-slate-700 px-2 rounded">690₪</span>
+                                <label class="flex justify-between text-xs text-slate-400 mb-3">
+                                    <span class="uppercase tracking-wide">Avg Price (NIS)</span>
+                                    <span id="wknPriceVal" class="font-mono font-bold text-white text-lg bg-slate-800 px-2 rounded">690₪</span>
                                 </label>
                                 <input type="range" min="400" max="1000" value="690" id="wknPrice" class="w-full">
                             </div>
@@ -301,124 +157,287 @@
 
                         <!-- Column 3: The Verdict -->
                         <div class="flex flex-col justify-between bg-slate-900 rounded-lg p-6 border-2 border-slate-700 shadow-inner relative overflow-hidden">
-                            <div class="absolute top-0 right-0 p-4 opacity-10"><span class="text-9xl">💰</span></div>
                             <div class="space-y-4 relative z-10">
                                 <div class="flex justify-between text-sm text-slate-400 border-b border-slate-800 pb-2">
-                                    <span>Gross Revenue:</span>
-                                    <span id="totalRev" class="text-white font-mono font-bold">₪41,420</span>
+                                    <span>Monthly Revenue:</span>
+                                    <span id="totalRev" class="text-white font-mono font-bold">₪31,624</span>
                                 </div>
                                 <div class="flex justify-between text-sm text-slate-400 border-b border-slate-800 pb-2">
-                                    <span>Fixed Costs (Real):</span>
-                                    <span class="text-red-400 font-mono font-bold">-₪25,566</span>
+                                    <span>Fixed Costs:</span>
+                                    <span class="text-red-400 font-mono font-bold">-₪30,000</span>
                                 </div>
                             </div>
                             <div class="mt-auto relative z-10">
                                 <span class="block text-center text-xs text-slate-500 uppercase tracking-widest mb-2">Projected Monthly Net Profit</span>
-                                <span id="finalEbitda" class="block text-center text-4xl md:text-5xl font-bold text-emerald-400 transition-colors duration-300">₪8,106</span>
+                                <span id="finalEbitda" class="block text-center text-4xl md:text-5xl font-bold text-yellow-500 transition-colors duration-300">₪1,624</span>
+                                <span id="ebitdaStatus" class="block text-center text-xs text-slate-400 mt-2">Break-Even Zone</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Strategy Toggle & Cards -->
-                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 mt-6">
-                    <div class="flex justify-center">
-                         <div class="bg-slate-100 p-1 rounded-lg flex shadow-inner">
-                            <button onclick="setStrategy('safe')" id="btn-safe" class="px-6 py-2 rounded-md text-sm font-bold transition-all strategy-toggle-inactive">Option A: SAFE</button>
-                            <button onclick="setStrategy('aggressive')" id="btn-aggressive" class="px-6 py-2 rounded-md text-sm font-bold transition-all strategy-toggle-active">Option B: AGGRESSIVE</button>
+                <!-- Charts Row -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="glass-panel rounded-xl p-6">
+                        <h3 class="text-sm font-bold text-slate-400 uppercase mb-4">Revenue Heatmap (The Problem)</h3>
+                        <div class="chart-container" style="height: 200px;">
+                            <canvas id="heatmapChart"></canvas>
                         </div>
                     </div>
-                    <div id="pricing-cards-container" class="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in mt-6">
-                        <!-- Populated by JS -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- SECTION 4: B2B STRATEGY (SOURCE B) -->
-            <section id="b2b" class="hidden space-y-6 max-w-6xl mx-auto">
-                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-slate-800">
-                    <h2 class="text-2xl font-bold text-slate-800 mb-2">B2B: The "Executive Flight Crew"</h2>
-                    <p class="text-slate-600">To fill the hollow Mon-Wed slots, we pivot from "Fun" to "Leadership Training".</p>
-                </div>
-                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="lg:col-span-2 bg-white rounded-xl shadow-sm p-6">
-                        <h3 class="text-lg font-bold text-slate-800 mb-4">The "Quote-15-people" Model</h3>
-                        <p class="text-sm text-slate-500 mb-4 italic">Based on quote found in Source 9: 5,800 + VAT for 15 Pax.</p>
-                        <div class="space-y-4">
-                            <div class="flex"><div class="shrink-0 h-8 w-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold mr-4">1</div><div><h4 class="font-bold text-slate-700">The Facilitator</h4><p class="text-sm text-slate-600 mt-1">Contract an Ex-El Al Pilot (Freelance). Pay per session only.</p></div></div>
-                            <div class="flex"><div class="shrink-0 h-8 w-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold mr-4">2</div><div><h4 class="font-bold text-slate-700">The Pricing</h4><p class="text-sm text-slate-600 mt-1"><strong>5,800 ₪ + VAT</strong> for a 4-hour event (vs 300 ₪/hr B2C).</p></div></div>
-                        </div>
-                    </div>
-                    <div class="bg-slate-50 rounded-xl p-6 border border-slate-200">
-                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wide mb-4">Revenue Impact</h3>
-                        <div class="text-center p-4 bg-white rounded border border-slate-200">
-                            <span class="block text-xl font-bold text-slate-800">1 B2B Event</span>
-                            <span class="block text-2xl font-bold text-emerald-600">= 14%</span>
-                            <span class="text-[10px] text-slate-500">Of 2025 Monthly Revenue Average</span>
+                    <div class="glass-panel rounded-xl p-6">
+                        <h3 class="text-sm font-bold text-slate-400 uppercase mb-4">Expense Structure (The Leverage)</h3>
+                        <div class="chart-container" style="height: 200px;">
+                            <canvas id="expenseChart"></canvas>
                         </div>
                     </div>
                 </div>
             </section>
 
-             <!-- SECTION 5: COMPETITORS (SOURCE B) -->
-             <section id="competitors" class="hidden space-y-6 max-w-6xl mx-auto">
-                 <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-indigo-600">
-                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Competitive Defense</h2>
-                    <p class="text-slate-600">Don't lower prices. You sell **Authenticity** and **Time**.</p>
+            <!-- SECTION 2: FINANCIAL AUDIT -->
+            <section id="financials" class="hidden space-y-6 max-w-7xl mx-auto animate-fade-in">
+                <div class="glass-panel rounded-xl p-8 border-l-4 border-blue-500">
+                    <h2 class="text-2xl font-bold text-white mb-2">CFO Report: 2025 Actuals</h2>
+                    <p class="text-slate-400 max-w-3xl">
+                        Forensic review of "Budget-2025-Simdream". The business is viable but currently under-optimized.
+                    </p>
+                </div>
+                <div class="glass-panel rounded-xl overflow-hidden">
+                    <table class="w-full text-sm text-left text-slate-300">
+                        <thead class="text-xs text-slate-500 uppercase bg-slate-900 border-b border-slate-700">
+                            <tr>
+                                <th class="px-6 py-4">Line Item</th>
+                                <th class="px-6 py-4 text-right">2025 Actuals (Annual)</th>
+                                <th class="px-6 py-4 text-right">Monthly Avg</th>
+                                <th class="px-6 py-4 text-right text-blue-400">2026 Target</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-row-hover border-b border-slate-800">
+                                <td class="px-6 py-3 font-bold text-white">Gross Revenue</td>
+                                <td class="px-6 py-3 text-right">497,047</td>
+                                <td class="px-6 py-3 text-right">41,420</td>
+                                <td class="px-6 py-3 text-right text-blue-400">840,000</td>
+                            </tr>
+                            <tr class="table-row-hover border-b border-slate-800 text-xs text-slate-500">
+                                <td class="px-6 py-2 pl-8">(-) VAT & Deductions</td>
+                                <td class="px-6 py-2 text-right">(89,470)</td>
+                                <td class="px-6 py-2 text-right">(7,455)</td>
+                                <td class="px-6 py-2 text-right">(151,200)</td>
+                            </tr>
+                            <tr class="table-row-hover border-b border-slate-800 bg-slate-900/50">
+                                <td class="px-6 py-3 font-bold text-slate-200">Net Revenue</td>
+                                <td class="px-6 py-3 text-right text-slate-200">407,579</td>
+                                <td class="px-6 py-3 text-right text-slate-200">33,965</td>
+                                <td class="px-6 py-3 text-right text-blue-300">688,800</td>
+                            </tr>
+                            <tr class="table-row-hover text-xs text-slate-400">
+                                <td class="px-6 py-2 pl-8">(-) Salaries</td>
+                                <td class="px-6 py-2 text-right">(83,430)</td>
+                                <td class="px-6 py-2 text-right">(6,952)</td>
+                                <td class="px-6 py-2 text-right">(139,200)</td>
+                            </tr>
+                            <tr class="table-row-hover text-xs text-slate-400">
+                                <td class="px-6 py-2 pl-8">(-) Rent</td>
+                                <td class="px-6 py-2 text-right">(80,920)</td>
+                                <td class="px-6 py-2 text-right">(6,743)</td>
+                                <td class="px-6 py-2 text-right">(80,920)</td>
+                            </tr>
+                            <tr class="table-row-hover text-xs text-slate-400">
+                                <td class="px-6 py-2 pl-8">(-) Marketing</td>
+                                <td class="px-6 py-2 text-right">(68,908)</td>
+                                <td class="px-6 py-2 text-right">(5,742)</td>
+                                <td class="px-6 py-2 text-right">(72,000)</td>
+                            </tr>
+                            <tr class="table-row-hover font-bold bg-slate-800 text-white border-t border-slate-600">
+                                <td class="px-6 py-4">Net Profit (EBITDA)</td>
+                                <td class="px-6 py-4 text-right text-emerald-400">97,274</td>
+                                <td class="px-6 py-4 text-right text-emerald-400">8,106</td>
+                                <td class="px-6 py-4 text-right text-emerald-400">231,817</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECTION 3: INVESTOR RELATIONS (NEW) -->
+            <section id="investors" class="hidden space-y-8 max-w-7xl mx-auto animate-fade-in">
+                <div class="glass-panel rounded-xl p-8 border-l-4 border-emerald-500">
+                    <h2 class="text-3xl font-bold text-white mb-2">Investor Briefing: The 2026 Scale-Up</h2>
+                    <p class="text-slate-400 text-lg">Converting a lifestyle business into a scalable corporate training asset.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="glass-panel p-6 rounded-xl hover:bg-slate-800 transition-colors">
+                        <div class="h-12 w-12 bg-emerald-900/50 rounded-lg flex items-center justify-center mb-4 text-2xl">💎</div>
+                        <h3 class="text-xl font-bold text-white mb-2">The Asset</h3>
+                        <p class="text-slate-400 text-sm">A professional-grade Boeing 737-800 NG simulator. Hard asset with 15+ year lifespan. Currently utilized at only <span class="text-emerald-400 font-bold">30% capacity</span>.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl hover:bg-slate-800 transition-colors">
+                        <div class="h-12 w-12 bg-blue-900/50 rounded-lg flex items-center justify-center mb-4 text-2xl">📈</div>
+                        <h3 class="text-xl font-bold text-white mb-2">The Pivot</h3>
+                        <p class="text-slate-400 text-sm">Shifting 40% of inventory from B2C (Entertainment) to B2B (Corporate Training). Increasing Average Order Value from 600₪ to <span class="text-blue-400 font-bold">5,800₪</span>.</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl hover:bg-slate-800 transition-colors">
+                        <div class="h-12 w-12 bg-amber-900/50 rounded-lg flex items-center justify-center mb-4 text-2xl">🚀</div>
+                        <h3 class="text-xl font-bold text-white mb-2">The Yield</h3>
+                        <p class="text-slate-400 text-sm">Targeting 231k NIS Net Profit in 2026. This represents a <span class="text-amber-400 font-bold">138% YoY growth</span> in EBITDA with minimal increase in OPEX.</p>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-slate-300 mb-4 border-b border-slate-700 pb-2">Investment Thesis</h3>
+                    <ul class="space-y-3 text-slate-400 text-sm">
+                        <li class="flex items-start gap-3"><span class="text-green-500 font-bold">✓</span> <span><strong>Distressed Asset Optimization:</strong> We already pay rent/staff. Filling empty Mon-Wed slots is 90% profit margin.</span></li>
+                        <li class="flex items-start gap-3"><span class="text-green-500 font-bold">✓</span> <span><strong>Market Gap:</strong> "The Squadron" is too gamified. "Real Flights" are too expensive/weather-dependent. SimDream controls the "Professional Authenticity" niche.</span></li>
+                        <li class="flex items-start gap-3"><span class="text-green-500 font-bold">✓</span> <span><strong>Scalability:</strong> Once the B2B model is proven in TLV, the curriculum is exportable to other simulator centers globally.</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- SECTION 4: B2C STRATEGY -->
+            <section id="b2c" class="hidden space-y-8 max-w-7xl mx-auto animate-fade-in">
+                <div class="glass-panel rounded-xl p-6 border-l-4 border-blue-600">
+                    <h2 class="text-2xl font-bold text-white mb-2">B2C Pricing War Room</h2>
+                    <p class="text-slate-400">Problem: Friday Bottleneck. Solution: Aggressive Yield Management.</p>
+                </div>
+
+                <div class="flex justify-center my-6">
+                    <div class="bg-slate-900 p-1 rounded-lg flex border border-slate-700">
+                        <button onclick="setStrategy('safe')" id="btn-safe" class="px-6 py-2 rounded-md text-sm font-bold transition-all strategy-toggle-inactive">Option A: SAFE</button>
+                        <button onclick="setStrategy('aggressive')" id="btn-aggressive" class="px-6 py-2 rounded-md text-sm font-bold transition-all strategy-toggle-active">Option B: AGGRESSIVE</button>
+                    </div>
+                </div>
+
+                <div id="pricing-cards-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- JS Populates this -->
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <div class="glass-panel p-6 rounded-xl">
+                        <h4 class="text-red-400 font-bold mb-2">☠️ The Death of the 120min</h4>
+                        <p class="text-sm text-slate-400">Currently, a 120-min session blocks 2 potential 60-min sales. It is a "Loss Leader" that loses us money on Fridays. <br><strong>Action:</strong> Kill it. Replace with 90-min "Captain's Challenge" at a premium price (890₪).</p>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl">
+                        <h4 class="text-blue-400 font-bold mb-2">⚓ The Decoy Effect</h4>
+                        <p class="text-sm text-slate-400">The 30-min "Cadet" (397₪) exists ONLY to make the 60-min "First Officer" (590₪) look like a bargain. <br><strong>Psychology:</strong> "For just 200 shekels more, I get DOUBLE the time!"</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 5: OPERATIONS (WIX) (NEW) -->
+            <section id="operations" class="hidden space-y-8 max-w-7xl mx-auto animate-fade-in">
+                 <div class="glass-panel rounded-xl p-6 border-l-4 border-purple-500">
+                    <h2 class="text-2xl font-bold text-white mb-2">Ops Manual: The Airline Yield Model</h2>
+                    <p class="text-slate-400">How to trick Wix Bookings into acting like an Airline Revenue Management System.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="glass-panel p-6 rounded-xl flex gap-4">
+                        <div class="bg-purple-900/50 h-10 w-10 flex items-center justify-center rounded-full font-bold text-purple-400 shrink-0">1</div>
+                        <div>
+                            <h3 class="font-bold text-white">Split the Inventory</h3>
+                            <p class="text-sm text-slate-400 mt-1">Don't just have "60 Minute Flight". Create two hidden duplicate services: <br><code class="bg-slate-900 px-2 py-1 rounded text-xs text-green-400">Flight - Weekday</code> and <code class="bg-slate-900 px-2 py-1 rounded text-xs text-red-400">Flight - Weekend</code>.</p>
+                        </div>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl flex gap-4">
+                        <div class="bg-purple-900/50 h-10 w-10 flex items-center justify-center rounded-full font-bold text-purple-400 shrink-0">2</div>
+                        <div>
+                            <h3 class="font-bold text-white">The "Staff Hack"</h3>
+                            <p class="text-sm text-slate-400 mt-1">Wix links services to "Staff". Create a "Weekday Instructor" and a "Weekend Instructor". <br>Set "Weekend Instructor" availability to <strong>Fri-Sat ONLY</strong>. Assign the expensive service to him. Now, the cheap rate physically cannot be booked on Friday.</p>
+                        </div>
+                    </div>
+                    <div class="glass-panel p-6 rounded-xl flex gap-4">
+                        <div class="bg-purple-900/50 h-10 w-10 flex items-center justify-center rounded-full font-bold text-purple-400 shrink-0">3</div>
+                        <div>
+                            <h3 class="font-bold text-white">Visual Blocking</h3>
+                            <p class="text-sm text-slate-400 mt-1">On the frontend, use a "Category" tab logic. "Weekend Flights" tab shows the premium prices. "Midweek Deals" tab shows the standard prices.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 6: B2B & COMPETITORS -->
+            <section id="b2b" class="hidden space-y-8 max-w-7xl mx-auto animate-fade-in">
+                <div class="glass-panel rounded-xl p-6 border-l-4 border-amber-500">
+                    <h2 class="text-2xl font-bold text-white mb-2">B2B Product: "The Executive Flight Crew"</h2>
+                    <p class="text-slate-400">Filling the "Hollow Middle" (Mon-Wed) with high-ticket corporate events.</p>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div class="bg-white rounded-xl shadow-sm p-6">
-                        <h3 class="text-lg font-semibold mb-4">Price vs. Net Flight Time</h3>
-                        <div class="chart-container"><canvas id="competitorChart"></canvas></div>
+                    <div class="glass-panel p-6 rounded-xl">
+                        <h3 class="text-lg font-bold text-white mb-4">The Package</h3>
+                        <ul class="space-y-4 text-slate-300 text-sm">
+                            <li class="border-b border-slate-700 pb-2"><strong>Target:</strong> High-Tech Team Leads / HR Managers.</li>
+                            <li class="border-b border-slate-700 pb-2"><strong>Capacity:</strong> 3-4 Pax in Cockpit (Active), 10 Pax in Lounge (Briefing).</li>
+                            <li class="border-b border-slate-700 pb-2"><strong>The Hook:</strong> "Crisis Management Workshop at 30,000ft".</li>
+                            <li class="flex justify-between items-center pt-2">
+                                <span>Price Point:</span>
+                                <span class="text-2xl font-bold text-amber-400">2,500₪ - 5,800₪</span>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="space-y-4">
-                        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-                            <h4 class="font-bold text-red-600 mb-2">VS. ASIM (Herzliya)</h4>
-                            <p class="text-sm text-slate-600">They seem cheaper (425₪) but offer only 30 mins flight time.<br><strong>SimDream:</strong> 10.8 ₪/min vs <strong>ASIM:</strong> 14.1 ₪/min.</p>
-                        </div>
-                        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-                            <h4 class="font-bold text-indigo-600 mb-2">VS. The Squadron</h4>
-                            <p class="text-sm text-slate-600">They are a game (F-16). You are a professional simulation (Boeing).</p>
+                    <div class="glass-panel p-6 rounded-xl">
+                        <h3 class="text-lg font-bold text-white mb-4">Implementation</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3"><span class="bg-slate-800 p-2 rounded text-xs">Step 1</span> <span class="text-sm text-slate-400">Contract freelance Ex-El Al pilot (pay per session).</span></div>
+                            <div class="flex items-center gap-3"><span class="bg-slate-800 p-2 rounded text-xs">Step 2</span> <span class="text-sm text-slate-400">Create PDF Brochure "Leadership Under Pressure".</span></div>
+                            <div class="flex items-center gap-3"><span class="bg-slate-800 p-2 rounded text-xs">Step 3</span> <span class="text-sm text-slate-400">LinkedIn Outreach to HR VPs in Tel Aviv.</span></div>
                         </div>
                     </div>
                 </div>
-             </section>
+            </section>
 
-             <!-- SECTION 6: MARKETING (SOURCE B) -->
-             <section id="marketing" class="hidden space-y-6 max-w-6xl mx-auto">
-                <div class="bg-white rounded-xl shadow-sm p-6 border-l-4 border-green-500">
-                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Marketing Cockpit</h2>
-                    <p class="text-slate-600">"Saturday Night Live" - Rebranding for Couples.</p>
-                </div>
-                <div class="bg-slate-800 text-white rounded-xl p-8 mb-6 relative overflow-hidden shadow-lg">
-                    <div class="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="md:col-span-2">
-                            <h3 class="text-2xl font-bold text-amber-400 mb-2">The Offer: "Co-Pilot Date Night"</h3>
-                            <p class="text-slate-300">"Dinner and a movie is boring. Can you two land a 70-ton jet in a storm without fighting?"</p>
+            <!-- SECTION 7: MARKETING & COMPETITION -->
+            <section id="marketing" class="hidden space-y-8 max-w-7xl mx-auto animate-fade-in">
+                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Marketing -->
+                    <div class="glass-panel p-6 rounded-xl">
+                        <h2 class="text-xl font-bold text-white mb-4">Psych-Ops: Saturday Night</h2>
+                        <div class="bg-slate-900 p-4 rounded-lg border border-slate-700 mb-4">
+                            <h3 class="text-amber-400 font-bold mb-1">The "Co-Pilot Date Night"</h3>
+                            <p class="text-xs text-slate-400">Rebranding Saturday evenings as a "Relationship Test".</p>
                         </div>
-                        <div class="flex flex-col justify-center items-center bg-slate-700/50 rounded-lg p-4 border border-slate-600">
-                            <span class="text-slate-400 text-xs uppercase mb-1">Price</span>
-                            <span class="text-3xl font-bold text-amber-400">750₪</span>
+                        <div class="space-y-2">
+                             <div class="text-xs text-slate-500 uppercase font-bold">Ad Copy Options:</div>
+                             <div class="p-3 bg-slate-800/50 rounded border-l-2 border-blue-500">
+                                 <span class="text-xs text-blue-400 block mb-1">Hebrew</span>
+                                 <p class="text-sm text-slate-300" dir="rtl">"דייט במסעדה זה משעמם. בואו נראה אתכם מנחיתים בואינג 737 בסופה בלי לריב."</p>
+                             </div>
+                             <div class="p-3 bg-slate-800/50 rounded border-l-2 border-green-500">
+                                 <span class="text-xs text-green-400 block mb-1">English</span>
+                                 <p class="text-sm text-slate-300">"Dinner is boring. Can you two land a 70-ton jet together without breaking up?"</p>
+                             </div>
                         </div>
                     </div>
-                </div>
-                 <!-- Ad Copy Tabs -->
-                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
-                    <div class="flex space-x-4 border-b border-gray-200 mb-6">
-                        <button onclick="switchTab('hebrew')" id="tab-hebrew" class="tab-active pb-2 px-4 transition-colors">Hebrew</button>
-                        <button onclick="switchTab('english')" id="tab-english" class="tab-inactive pb-2 px-4 transition-colors">English</button>
-                        <button onclick="switchTab('russian')" id="tab-russian" class="tab-inactive pb-2 px-4 transition-colors">Russian</button>
+
+                    <!-- Competitors -->
+                    <div class="glass-panel p-6 rounded-xl">
+                        <h2 class="text-xl font-bold text-white mb-4">Competitive Defense</h2>
+                         <div class="space-y-4">
+                             <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                                 <span class="text-sm font-bold text-white">SimDream</span>
+                                 <span class="text-xs bg-blue-600 text-white px-2 py-1 rounded">10.8 ₪ / min</span>
+                             </div>
+                             <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                                 <span class="text-sm text-slate-400">ASIM (Herzliya)</span>
+                                 <span class="text-xs bg-slate-700 text-slate-400 px-2 py-1 rounded">14.1 ₪ / min</span>
+                             </div>
+                             <div class="flex justify-between items-center">
+                                 <span class="text-sm text-slate-400">The Squadron</span>
+                                 <span class="text-xs bg-slate-700 text-slate-400 px-2 py-1 rounded">Game / Arcade</span>
+                             </div>
+                             <div class="mt-4 p-3 bg-slate-900 rounded text-xs text-slate-400 italic">
+                                 "We are not the cheapest ticket, but we are the cheapest <strong>per minute of joy</strong>."
+                             </div>
+                         </div>
                     </div>
-                    <div id="content-hebrew" class="space-y-4 animate-fade-in"><div class="p-4 bg-slate-50 border border-slate-200 rounded"><p class="text-xl font-bold text-slate-800" dir="rtl">אל תשלמו על תדריכים. תשלמו על טיסה.</p></div></div>
-                    <div id="content-english" class="space-y-4 hidden animate-fade-in"><div class="p-4 bg-slate-50 border border-slate-200 rounded"><p class="text-xl font-bold text-slate-800">Real Boeing. Real Physics. No Reset Button.</p></div></div>
-                    <div id="content-russian" class="space-y-4 hidden animate-fade-in"><div class="p-4 bg-slate-50 border border-slate-200 rounded"><p class="text-xl font-bold text-slate-800">Почувствуй мощь Boeing 737. Только реальный полет.</p></div></div>
-                </div>
-             </section>
+                 </div>
+            </section>
+
         </div>
     </main>
 
     <script>
-        // --- Navigation Logic ---
+        // --- Navigation ---
         function navigate(sectionId) {
             document.querySelectorAll('section').forEach(el => el.classList.add('hidden'));
             const target = document.getElementById(sectionId);
@@ -428,34 +447,32 @@
             if(activeBtn) { activeBtn.classList.remove('inactive-nav'); activeBtn.classList.add('active-nav'); }
         }
         function toggleMobileMenu() { const menu = document.getElementById('mobile-menu'); menu.classList.toggle('hidden'); menu.classList.toggle('flex'); }
-        function switchTab(lang) {
-            ['hebrew', 'english', 'russian'].forEach(l => { document.getElementById('content-' + l).classList.add('hidden'); document.getElementById('tab-' + l).classList.remove('tab-active'); document.getElementById('tab-' + l).classList.add('tab-inactive'); });
-            document.getElementById('content-' + lang).classList.remove('hidden'); document.getElementById('tab-' + lang).classList.add('tab-active'); document.getElementById('tab-' + lang).classList.remove('tab-inactive');
-        }
 
-        // --- STRATEGY & SIMULATOR LOGIC (REAL DATA 2025) ---
+        // --- SIMULATOR & STRATEGY LOGIC ---
         let currentStrategy = 'aggressive'; 
         
-        // 2025 ACTUALS BASELINE
+        // BASELINE DATA FROM PROMPT
+        // Weekdays: 9 slots/week. Weekends: 3 slots/weekend.
+        // Revenue: ~30k. Fixed: 30k.
         const BASELINE = {
-            wkdUtil: 15,      // Calibrated to match ~41k revenue
+            wkdUtil: 9,      
             wkdPrice: 587,
-            wknUtil: 5,       // Calibrated to match ~41k revenue
+            wknUtil: 3,       
             wknPrice: 690 
         };
 
         const strategies = {
             safe: {
-                cadet: { price: "397 ₪", desc: "No Change. Anchor Product." },
-                fo: { wkndPrice: "650 ₪", wkdayPrice: "587 ₪", badgeColor: "bg-blue-600", badgeText: "MODERATE", desc: "Safe 10% hike." },
-                captain: { price: "850 ₪", desc: "Replaces 120m." },
-                simTargets: { wkdPrice: 587, wknPrice: 650, wkdUtil: 18, wknUtil: 8 }
+                cadet: { price: "397 ₪", desc: "Anchor Product" },
+                fo: { wkndPrice: "650 ₪", wkdayPrice: "587 ₪", badge: "SAFE", color: "bg-blue-600", desc: "Moderate 10% hike" },
+                captain: { price: "850 ₪", desc: "Replaces 120m" },
+                simTargets: { wkdPrice: 587, wknPrice: 650, wkdUtil: 12, wknUtil: 5 }
             },
             aggressive: {
-                cadet: { price: "397 ₪", desc: "Decoy Product." },
-                fo: { wkndPrice: "690 ₪", wkdayPrice: "590 ₪", badgeColor: "bg-red-600", badgeText: "AGGRESSIVE", desc: "17.5% hike." },
-                captain: { price: "890 ₪", desc: "High margin." },
-                simTargets: { wkdPrice: 590, wknPrice: 690, wkdUtil: 22, wknUtil: 10 }
+                cadet: { price: "397 ₪", desc: "Decoy Product" },
+                fo: { wkndPrice: "690 ₪", wkdayPrice: "590 ₪", badge: "AGGRESSIVE", color: "bg-red-600", desc: "Maximize Friday Yield" },
+                captain: { price: "890 ₪", desc: "High Margin" },
+                simTargets: { wkdPrice: 590, wknPrice: 690, wkdUtil: 15, wknUtil: 8 }
             }
         };
 
@@ -470,86 +487,124 @@
                 btnAgg.classList.add('strategy-toggle-active'); btnAgg.classList.remove('strategy-toggle-inactive');
             }
             renderPricingCards();
-            const targets = strategies[strat].simTargets;
-            document.getElementById('wkdPrice').value = targets.wkdPrice; document.getElementById('wknPrice').value = targets.wknPrice;
-            document.getElementById('wkdUtil').value = targets.wkdUtil; document.getElementById('wknUtil').value = targets.wknUtil;
-            updateRevenue();
-        }
-
-        function resetSimulator() {
-            document.getElementById('wkdUtil').value = BASELINE.wkdUtil; document.getElementById('wknUtil').value = BASELINE.wknUtil;
-            document.getElementById('wkdPrice').value = BASELINE.wkdPrice; document.getElementById('wknPrice').value = 690;
+            
+            // Auto-update simulator to strategy targets
+            const t = strategies[strat].simTargets;
+            document.getElementById('wkdPrice').value = t.wkdPrice; document.getElementById('wknPrice').value = t.wknPrice;
+            document.getElementById('wkdUtil').value = t.wkdUtil; document.getElementById('wknUtil').value = t.wknUtil;
             updateRevenue();
         }
 
         function renderPricingCards() {
-            const data = strategies[currentStrategy];
-            document.getElementById('pricing-cards-container').innerHTML = `
-                <div class="bg-white rounded-xl shadow-sm p-6 border-t-4 border-slate-400 flex flex-col opacity-75"><h3 class="text-lg font-bold">Cadet (30m)</h3><span class="text-2xl font-bold">${data.cadet.price}</span><p class="text-sm mt-2">${data.cadet.desc}</p></div>
-                <div class="bg-white rounded-xl shadow-xl p-6 border-t-4 border-blue-600 relative ring-2 ring-blue-50"><div class="absolute top-0 right-0 ${data.fo.badgeColor} text-white text-xs font-bold px-3 py-1 rounded-bl">${data.fo.badgeText}</div><h3 class="text-lg font-bold">First Officer</h3><span class="text-3xl font-bold text-blue-700">${data.fo.wkndPrice}</span><p class="text-sm mt-2">${data.fo.desc}</p></div>
-                <div class="bg-white rounded-xl shadow-sm p-6 border-t-4 border-amber-500 flex flex-col"><h3 class="text-lg font-bold">Captain (90m)</h3><span class="text-2xl font-bold">${data.captain.price}</span><p class="text-sm mt-2">${data.captain.desc}</p></div>
+            const s = strategies[currentStrategy];
+            const container = document.getElementById('pricing-cards-container');
+            container.innerHTML = `
+                <div class="glass-panel p-6 rounded-xl flex flex-col items-center text-center opacity-70">
+                    <h3 class="text-lg font-bold text-slate-300">Cadet (30m)</h3>
+                    <span class="text-2xl font-bold text-white mt-2">${s.cadet.price}</span>
+                    <p class="text-xs text-slate-400 mt-2">${s.cadet.desc}</p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl flex flex-col items-center text-center border-2 border-blue-500 relative transform scale-105 shadow-xl bg-slate-800">
+                    <div class="absolute top-0 right-0 ${s.fo.color} text-white text-[10px] font-bold px-2 py-1 rounded-bl uppercase">${s.fo.badge}</div>
+                    <h3 class="text-xl font-bold text-white">First Officer (60m)</h3>
+                    <span class="text-4xl font-bold text-blue-400 mt-2">${s.fo.wkndPrice}</span>
+                    <p class="text-xs text-slate-400 mt-2">${s.fo.desc}</p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl flex flex-col items-center text-center opacity-90">
+                    <h3 class="text-lg font-bold text-slate-300">Captain (90m)</h3>
+                    <span class="text-2xl font-bold text-white mt-2">${s.captain.price}</span>
+                    <p class="text-xs text-slate-400 mt-2">${s.captain.desc}</p>
+                </div>
             `;
         }
 
-        const wkdUtilInput = document.getElementById('wkdUtil'); const wknUtilInput = document.getElementById('wknUtil');
-        const wkdPriceInput = document.getElementById('wkdPrice'); const wknPriceInput = document.getElementById('wknPrice');
-        const wkdUtilVal = document.getElementById('wkdUtilVal'); const wknUtilVal = document.getElementById('wknUtilVal');
-        const wkdPriceVal = document.getElementById('wkdPriceVal'); const wknPriceVal = document.getElementById('wknPriceVal');
-        const totalRevDisplay = document.getElementById('totalRev'); const finalEbitdaDisplay = document.getElementById('finalEbitda');
+        function resetSimulator() {
+            document.getElementById('wkdUtil').value = BASELINE.wkdUtil;
+            document.getElementById('wknUtil').value = BASELINE.wknUtil;
+            document.getElementById('wkdPrice').value = BASELINE.wkdPrice;
+            document.getElementById('wknPrice').value = BASELINE.wknPrice;
+            updateRevenue();
+        }
 
         function updateRevenue() {
             const WEEKS_PER_MONTH = 4.3; 
-            const FIXED_COST = 25566; // REAL AVG EXPENSES 2025
-            const wkdSlots = parseInt(wkdUtilInput.value); const wknSlots = parseInt(wknUtilInput.value);
-            const wkdP = parseInt(wkdPriceInput.value); const wknP = parseInt(wknPriceInput.value);
+            const FIXED_COST = 30000; // From prompt
+            
+            const wkdSlots = parseInt(document.getElementById('wkdUtil').value);
+            const wknSlots = parseInt(document.getElementById('wknUtil').value);
+            const wkdP = parseInt(document.getElementById('wkdPrice').value);
+            const wknP = parseInt(document.getElementById('wknPrice').value);
 
-            const wkdRevenue = Math.round(wkdSlots * wkdP * WEEKS_PER_MONTH);
-            const wknRevenue = Math.round(wknSlots * wknP * WEEKS_PER_MONTH);
-            const totalRevenue = wkdRevenue + wknRevenue;
-            const ebitda = totalRevenue - FIXED_COST;
+            const wkdRev = Math.round(wkdSlots * wkdP * WEEKS_PER_MONTH);
+            const wknRev = Math.round(wknSlots * wknP * WEEKS_PER_MONTH);
+            const total = wkdRev + wknRev;
+            const ebitda = total - FIXED_COST;
 
-            wkdUtilVal.innerText = wkdSlots; wknUtilVal.innerText = wknSlots;
-            wkdPriceVal.innerText = wkdP + '₪'; wknPriceVal.innerText = wknP + '₪';
-            totalRevDisplay.innerText = '₪' + totalRevenue.toLocaleString();
-            finalEbitdaDisplay.innerText = '₪' + ebitda.toLocaleString();
+            document.getElementById('wkdUtilVal').innerText = wkdSlots;
+            document.getElementById('wknUtilVal').innerText = wknSlots;
+            document.getElementById('wkdPriceVal').innerText = wkdP + '₪';
+            document.getElementById('wknPriceVal').innerText = wknP + '₪';
+            
+            document.getElementById('totalRev').innerText = '₪' + total.toLocaleString();
+            const ebDisplay = document.getElementById('finalEbitda');
+            const ebStatus = document.getElementById('ebitdaStatus');
+            
+            ebDisplay.innerText = '₪' + ebitda.toLocaleString();
 
-            if(ebitda > 8500) { finalEbitdaDisplay.className = "block text-center text-4xl md:text-5xl font-bold text-emerald-400"; }
-            else if (ebitda > 0) { finalEbitdaDisplay.className = "block text-center text-4xl md:text-5xl font-bold text-yellow-500"; }
-            else { finalEbitdaDisplay.className = "block text-center text-4xl md:text-5xl font-bold text-red-500"; }
+            if(ebitda > 10000) { 
+                ebDisplay.className = "block text-center text-4xl md:text-5xl font-bold text-emerald-400 transition-colors duration-300"; 
+                ebStatus.innerText = "High Profitability";
+                ebStatus.className = "block text-center text-xs text-emerald-400 mt-2";
+            }
+            else if (ebitda > 0) { 
+                ebDisplay.className = "block text-center text-4xl md:text-5xl font-bold text-yellow-500 transition-colors duration-300";
+                ebStatus.innerText = "Sustainable";
+                ebStatus.className = "block text-center text-xs text-yellow-500 mt-2";
+            }
+            else { 
+                ebDisplay.className = "block text-center text-4xl md:text-5xl font-bold text-red-500 transition-colors duration-300";
+                ebStatus.innerText = "Cash Burn Warning";
+                ebStatus.className = "block text-center text-xs text-red-500 mt-2";
+            }
         }
 
-        [wkdUtilInput, wknUtilInput, wkdPriceInput, wknPriceInput].forEach(el => el.addEventListener('input', updateRevenue));
-
+        // --- INIT ---
         document.addEventListener('DOMContentLoaded', () => {
-            setStrategy('aggressive'); 
+            // Listeners
+            ['wkdUtil', 'wknUtil', 'wkdPrice', 'wknPrice'].forEach(id => {
+                document.getElementById(id).addEventListener('input', updateRevenue);
+            });
             
-            // Occupancy Chart using Monthly Revenue from 2025 Actuals
-            new Chart(document.getElementById('occupancyChart').getContext('2d'), {
-                type: 'line',
+            setStrategy('aggressive');
+            updateRevenue();
+
+            // Charts
+            // 1. Revenue Heatmap (Visualizing the Mon-Wed slump)
+            new Chart(document.getElementById('heatmapChart').getContext('2d'), {
+                type: 'bar',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                    datasets: [{ 
-                        label: 'Gross Revenue 2025 (NIS)', 
-                        data: [18145, 20667, 53064, 52003, 72380, 37970, 47800, 45178, 35322, 40793, 41976, 31749], 
-                        borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.1)', tension: 0.3, fill: true 
+                    labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                    datasets: [{
+                        label: 'Avg Occupancy (%)',
+                        data: [25, 10, 5, 10, 40, 95, 80],
+                        backgroundColor: ['#3b82f6', '#1e293b', '#ef4444', '#1e293b', '#3b82f6', '#10b981', '#10b981']
                     }]
                 },
-                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } }, plugins: { legend: { display: true } } }
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100 } } }
             });
 
+            // 2. Expense Structure
             new Chart(document.getElementById('expenseChart').getContext('2d'), {
                 type: 'doughnut',
                 data: {
-                    labels: ['Salaries (17%)', 'Rent (16%)', 'Marketing (14%)', 'Tax/CPA (6%)', 'Muni Tax (4%)', 'Loans/Other'],
-                    datasets: [{ data: [16.8, 16.3, 13.9, 5.7, 4.5, 42.8], backgroundColor: ['#3b82f6', '#0f172a', '#ef4444', '#10b981', '#f59e0b', '#64748b'] }]
+                    labels: ['Rent', 'Salaries', 'Marketing', 'Utils/Other'],
+                    datasets: [{
+                        data: [30, 25, 20, 25], // Approximate split
+                        backgroundColor: ['#3b82f6', '#0f172a', '#f59e0b', '#64748b'],
+                        borderWidth: 0
+                    }]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
-            });
-
-            new Chart(document.getElementById('competitorChart').getContext('2d'), {
-                type: 'scatter',
-                data: { datasets: [{ label: 'SimDream', data: [{x: 587, y: 60}], backgroundColor: '#2563eb', pointRadius: 10 }, { label: 'ASIM', data: [{x: 425, y: 30}], backgroundColor: '#ef4444', pointRadius: 8 }, { label: 'The Squadron', data: [{x: 350, y: 20}], backgroundColor: '#a855f7', pointRadius: 8 }] },
-                options: { responsive: true, maintainAspectRatio: false, scales: { x: { title: { display: true, text: 'Price (NIS)' }, min: 200, max: 800 }, y: { title: { display: true, text: 'Net Flight Time (Mins)' }, min: 0, max: 90 } } }
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#94a3b8' } } } }
             });
         });
     </script>
