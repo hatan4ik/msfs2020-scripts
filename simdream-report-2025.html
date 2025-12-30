@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SimDream: Master Command Center (v7.0)</title>
+    <title>SimDream: Master Command Center (v9.0)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -29,26 +29,34 @@
                     <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold text-white tracking-tighter shadow-lg shadow-blue-900/50">SD</div>
                     <h1 class="text-lg font-bold tracking-tight text-white">SimDream</h1>
                 </div>
-                <p class="text-[10px] text-blue-400 mono uppercase tracking-widest pl-11">Master Command</p>
+                <p class="text-[10px] text-blue-400 mono uppercase tracking-widest pl-11">Command v9.0</p>
             </div>
             <nav class="flex-1 overflow-y-auto py-6 px-3 space-y-1">
                 <a href="#overview" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-300 rounded-md hover:bg-slate-800 hover:text-white transition group">
                     <svg class="w-5 h-5 text-slate-500 group-hover:text-blue-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                     Overview
                 </a>
+                
                 <div class="pt-4 pb-2 px-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Financial Intelligence</div>
-                <a href="#expenses" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-300 rounded-md hover:bg-slate-800 hover:text-purple-400 transition group">
-                    <svg class="w-5 h-5 text-slate-500 group-hover:text-purple-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
-                    Expense Anatomy (Pie)
-                </a>
                 <a href="#quarterly" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-300 rounded-md hover:bg-slate-800 hover:text-blue-400 transition group">
                     <svg class="w-5 h-5 text-slate-500 group-hover:text-blue-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                     Quarterly Pulse
                 </a>
+                 <a href="#expenses" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-300 rounded-md hover:bg-slate-800 hover:text-purple-400 transition group">
+                    <svg class="w-5 h-5 text-slate-500 group-hover:text-purple-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
+                    Expense Pie
+                </a>
+
+                <div class="pt-4 pb-2 px-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Operations Intelligence</div>
+                <a href="#volatility" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-300 rounded-md hover:bg-slate-800 hover:text-orange-400 transition group">
+                    <svg class="w-5 h-5 text-slate-500 group-hover:text-orange-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                    Revenue Reality
+                </a>
                 <a href="#forensics" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-300 rounded-md hover:bg-slate-800 hover:text-red-400 transition group">
                     <svg class="w-5 h-5 text-slate-500 group-hover:text-red-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    Data Forensics (Yield)
+                    Data Forensics
                 </a>
+
                 <div class="pt-4 pb-2 px-3 text-xs font-bold text-slate-500 uppercase tracking-wider">Strategy & Execution</div>
                 <a href="#simulator" class="flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-300 rounded-md hover:bg-slate-800 hover:text-green-400 transition group">
                     <svg class="w-5 h-5 text-slate-500 group-hover:text-green-400 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -72,49 +80,6 @@
                 </p>
             </section>
 
-            <section id="expenses" class="space-y-6 scroll-mt-10">
-                <div class="flex items-center justify-between border-b border-slate-700 pb-4">
-                    <h3 class="text-2xl font-bold text-white flex items-center gap-2">
-                        <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
-                        Expense Anatomy: Where the Money Goes
-                    </h3>
-                </div>
-
-                <div class="grid md:grid-cols-2 gap-8 items-center">
-                    <div class="card p-6 flex justify-center items-center bg-slate-800 relative min-h-[300px]">
-                        <div class="w-full max-w-sm h-64">
-                            <canvas id="expenseChart"></canvas>
-                        </div>
-                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <div class="text-center pt-4">
-                                <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Total 2025</p>
-                                <p class="text-xl font-black text-white">310k ₪</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="card p-4 border-l-4 border-purple-500">
-                            <h4 class="font-bold text-white text-lg mb-2">The "Big Three" Cost Centers</h4>
-                            <p class="text-sm text-slate-400">Salaries, Rent, and Marketing consume <strong class="text-purple-400">75%</strong> of your budget.</p>
-                        </div>
-                        <div class="overflow-hidden rounded-lg border border-slate-700">
-                            <table class="w-full text-sm text-left text-slate-400">
-                                <thead class="text-xs text-slate-500 uppercase bg-slate-900">
-                                    <tr><th class="px-4 py-3">Category</th><th class="px-4 py-3 text-right">Amount (₪)</th><th class="px-4 py-3 text-right">Share</th></tr>
-                                </thead>
-                                <tbody class="divide-y divide-slate-800 bg-slate-800/50">
-                                    <tr><td class="px-4 py-2 text-white">Salaries</td><td class="px-4 py-2 text-right">83,430</td><td class="px-4 py-2 text-right font-bold text-purple-400">26.9%</td></tr>
-                                    <tr><td class="px-4 py-2 text-white">Rent</td><td class="px-4 py-2 text-right">80,920</td><td class="px-4 py-2 text-right font-bold text-purple-400">26.1%</td></tr>
-                                    <tr><td class="px-4 py-2 text-white">Marketing</td><td class="px-4 py-2 text-right">68,908</td><td class="px-4 py-2 text-right font-bold text-purple-400">22.2%</td></tr>
-                                    <tr><td class="px-4 py-2">Tax/CPA</td><td class="px-4 py-2 text-right">28,320</td><td class="px-4 py-2 text-right">9.1%</td></tr>
-                                    <tr><td class="px-4 py-2">Others</td><td class="px-4 py-2 text-right">48,727</td><td class="px-4 py-2 text-right">15.7%</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <section id="quarterly" class="space-y-6 scroll-mt-10">
                 <div class="flex items-center justify-between border-b border-slate-700 pb-4">
                     <h3 class="text-2xl font-bold text-white flex items-center gap-2">
@@ -124,65 +89,99 @@
                 </div>
                 <div class="grid md:grid-cols-4 gap-4">
                     <div class="card p-4 border-t-4 border-slate-500">
-                        <p class="text-xs text-slate-500 uppercase font-bold mb-1">Q1 (Jan-Mar)</p>
-                        <p class="text-xl font-bold text-white mb-2">16,830 ₪ <span class="text-xs font-normal text-slate-400">Profit</span></p>
-                        <p class="text-xs text-yellow-400 font-mono">Margin: 18.3%</p>
+                        <p class="text-xs text-slate-500 uppercase font-bold mb-2">Q1 (Jan-Mar)</p>
+                        <div class="space-y-1 text-xs font-mono text-slate-400">
+                            <div class="flex justify-between"><span>Rev:</span> <span class="text-white">91,876</span></div>
+                            <div class="flex justify-between"><span>Exp:</span> <span class="text-red-400">58,508</span></div>
+                        </div>
+                        <div class="mt-2 pt-2 border-t border-slate-700">
+                            <p class="text-xl font-bold text-white">16,830 ₪</p>
+                            <p class="text-xs text-yellow-400">Margin: 18.3%</p>
+                        </div>
                     </div>
                     <div class="card p-4 border-t-4 border-green-500 bg-slate-800 relative shadow-lg shadow-green-900/20">
                         <div class="absolute -top-3 right-2 bg-green-600 text-white text-[10px] font-bold px-2 py-0.5 rounded">PEAK</div>
-                        <p class="text-xs text-green-400 uppercase font-bold mb-1">Q2 (Apr-Jun)</p>
-                        <p class="text-xl font-bold text-white mb-2">53,634 ₪ <span class="text-xs font-normal text-slate-400">Profit</span></p>
-                        <p class="text-xs text-green-400 font-mono">Margin: 33.0%</p>
+                        <p class="text-xs text-green-400 uppercase font-bold mb-2">Q2 (Apr-Jun)</p>
+                        <div class="space-y-1 text-xs font-mono text-slate-400">
+                            <div class="flex justify-between"><span>Rev:</span> <span class="text-white">162,353</span></div>
+                            <div class="flex justify-between"><span>Exp:</span> <span class="text-red-400">75,982</span></div>
+                        </div>
+                        <div class="mt-2 pt-2 border-t border-slate-700">
+                            <p class="text-xl font-bold text-white">53,634 ₪</p>
+                            <p class="text-xs text-green-400">Margin: 33.0%</p>
+                        </div>
                     </div>
                     <div class="card p-4 border-t-4 border-red-500">
-                        <p class="text-xs text-red-400 uppercase font-bold mb-1">Q3 (Jul-Sep)</p>
-                        <p class="text-xl font-bold text-white mb-2">14,949 ₪ <span class="text-xs font-normal text-slate-400">Profit</span></p>
-                        <p class="text-xs text-red-400 font-mono">Margin: 11.6%</p>
+                        <p class="text-xs text-red-400 uppercase font-bold mb-2">Q3 (Jul-Sep)</p>
+                        <div class="space-y-1 text-xs font-mono text-slate-400">
+                            <div class="flex justify-between"><span>Rev:</span> <span class="text-white">128,300</span></div>
+                            <div class="flex justify-between"><span>Exp:</span> <span class="text-red-400">90,257</span></div>
+                        </div>
+                        <div class="mt-2 pt-2 border-t border-slate-700">
+                            <p class="text-xl font-bold text-white">14,949 ₪</p>
+                            <p class="text-xs text-red-400">Margin: 11.6%</p>
+                        </div>
                     </div>
                     <div class="card p-4 border-t-4 border-slate-500">
-                        <p class="text-xs text-slate-500 uppercase font-bold mb-1">Q4 (Oct-Dec)</p>
-                        <p class="text-xl font-bold text-white mb-2">15,689 ₪ <span class="text-xs font-normal text-slate-400">Profit</span></p>
-                        <p class="text-xs text-yellow-400 font-mono">Margin: 13.1%</p>
+                        <p class="text-xs text-slate-500 uppercase font-bold mb-2">Q4 (Oct-Dec)</p>
+                        <div class="space-y-1 text-xs font-mono text-slate-400">
+                            <div class="flex justify-between"><span>Rev:</span> <span class="text-white">119,189</span></div>
+                            <div class="flex justify-between"><span>Exp:</span> <span class="text-red-400">82,045</span></div>
+                        </div>
+                        <div class="mt-2 pt-2 border-t border-slate-700">
+                            <p class="text-xl font-bold text-white">15,689 ₪</p>
+                            <p class="text-xs text-yellow-400">Margin: 13.1%</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section id="forensics" class="space-y-6 scroll-mt-10">
-                <div class="flex items-center justify-between">
+            <section id="volatility" class="space-y-6 scroll-mt-10">
+                <div class="flex items-center justify-between border-b border-slate-700 pb-4">
                     <h3 class="text-2xl font-bold text-white flex items-center gap-2">
-                        <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        Data Forensics: Revenue Reality
+                        <svg class="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                        Revenue Reality: Volatility & Patterns
                     </h3>
                 </div>
                 
                 <div class="grid md:grid-cols-2 gap-6">
-                    <div class="card p-6 border-l-4 border-l-red-500">
-                        <h4 class="text-sm uppercase tracking-wider text-slate-400 font-bold mb-4">The Price Gap (List vs. Real)</h4>
-                        <div class="space-y-6">
-                            <div class="flex justify-between items-end">
-                                <div>
-                                    <p class="text-3xl font-bold text-white">587 ₪</p>
-                                    <p class="text-xs text-slate-500">List Price (60 min)</p>
-                                </div>
-                                <div class="text-right">
-                                    <p class="text-3xl font-bold text-red-400">385 ₪</p>
-                                    <p class="text-xs text-slate-500">Actual Realized (ARPO)</p>
-                                </div>
-                            </div>
-                            <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden">
-                                <div class="bg-red-500 h-full" style="width: 65%"></div>
-                            </div>
-                            <p class="text-xs text-red-300 bg-red-900/20 p-3 rounded border border-red-900/50">
-                                ⚠️ <strong>Insight:</strong> You are discounting 35% on average. This kills your margins.
-                            </p>
+                    <div class="card p-6">
+                        <h4 class="text-sm uppercase tracking-wider text-slate-400 font-bold mb-4">Daily Revenue Reality (Estimated)</h4>
+                        <div class="h-64">
+                            <canvas id="dailyChart"></canvas>
+                        </div>
+                        <div class="mt-4 p-3 bg-slate-800 rounded border border-slate-700 text-xs text-slate-400 text-center">
+                            Friday (4.5k) is 3x higher than any Weekday.
                         </div>
                     </div>
 
                     <div class="card p-6">
-                        <h4 class="text-sm uppercase tracking-wider text-slate-400 font-bold mb-4">Weekly Utilization (Estimated)</h4>
-                        <canvas id="utilizationChart"></canvas>
-                        <div class="mt-4 p-3 bg-blue-900/20 border border-blue-900/50 rounded text-xs text-blue-200">
-                            <strong>Opportunity:</strong> Saturday Night (15% full) is your "Blue Ocean."
+                        <h4 class="text-sm uppercase tracking-wider text-slate-400 font-bold mb-4">Monthly Revenue Volatility (2025)</h4>
+                        <div class="h-64">
+                            <canvas id="monthlyChart"></canvas>
+                        </div>
+                        <div class="mt-4 p-3 bg-slate-800 rounded border border-slate-700 text-xs text-slate-400 text-center">
+                            Huge spike in May (72k) vs Winter Slump (18k).
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="expenses" class="space-y-6 scroll-mt-10">
+                <div class="card p-6 bg-slate-800 border-l-4 border-purple-500">
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div class="flex justify-center h-48">
+                            <canvas id="expenseChart"></canvas>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-lg mb-2">The "Big Three" Killers</h4>
+                            <p class="text-sm text-slate-400 mb-4">Salaries, Rent, and Marketing consume <strong class="text-purple-400">75%</strong> of your 310k Budget.</p>
+                            <div class="grid grid-cols-2 gap-4 text-xs font-mono">
+                                <div class="bg-slate-900 p-2 rounded">Salaries: 83k</div>
+                                <div class="bg-slate-900 p-2 rounded">Rent: 81k</div>
+                                <div class="bg-slate-900 p-2 rounded">Marketing: 69k</div>
+                                <div class="bg-slate-900 p-2 rounded">Tax/Other: 77k</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -192,8 +191,8 @@
                 <div class="card bg-slate-800 border-green-500/30 overflow-hidden shadow-2xl shadow-green-900/20">
                     <div class="bg-slate-900/50 p-6 border-b border-slate-700 flex justify-between items-center">
                         <div>
-                            <h3 class="text-2xl font-bold text-white">EBITDA Simulator v7.0</h3>
-                            <p class="text-slate-400 text-sm">Target: 2026 Growth Plan</p>
+                            <h3 class="text-2xl font-bold text-white">EBITDA Simulator v9.0</h3>
+                            <p class="text-slate-400 text-sm">Inputs linked to P&L Logic</p>
                         </div>
                         <button onclick="resetSim()" class="text-xs bg-slate-700 hover:bg-slate-600 px-3 py-1 rounded text-white transition">Reset 2025 Base</button>
                     </div>
@@ -238,7 +237,7 @@
                 </div>
             </section>
 
-            <section id="wix" class="grid md:grid-cols-2 gap-8 scroll-mt-10">
+             <section id="wix" class="grid md:grid-cols-2 gap-8 scroll-mt-10">
                 <div class="space-y-4">
                     <h3 class="text-2xl font-bold text-white">Wix Operations Protocol</h3>
                     <div class="space-y-2">
@@ -268,37 +267,55 @@
 
     <script>
         // --- CHARTS ---
-        // 1. Expense Pie Chart
-        const ctxPie = document.getElementById('expenseChart').getContext('2d');
-        new Chart(ctxPie, {
+        // 1. Expense Pie
+        new Chart(document.getElementById('expenseChart').getContext('2d'), {
             type: 'doughnut',
             data: {
-                labels: ['Salaries', 'Rent', 'Marketing', 'Tax/CPA', 'Others'],
+                labels: ['Salaries', 'Rent', 'Marketing', 'Others'],
                 datasets: [{
-                    data: [83430, 80920, 68908, 28320, 48727],
-                    backgroundColor: ['#8b5cf6', '#6366f1', '#ec4899', '#3b82f6', '#64748b'],
+                    data: [83430, 80920, 68908, 77047],
+                    backgroundColor: ['#8b5cf6', '#6366f1', '#ec4899', '#64748b'],
                     borderWidth: 0
                 }]
             },
             options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { display: false } } }
         });
 
-        // 2. Utilization Heatmap
-        const ctxUtil = document.getElementById('utilizationChart').getContext('2d');
-        new Chart(ctxUtil, {
-            type: 'line',
+        // 2. Daily Revenue Chart (Estimated)
+        new Chart(document.getElementById('dailyChart').getContext('2d'), {
+            type: 'bar',
             data: {
                 labels: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
                 datasets: [{
-                    label: 'Occupancy %',
-                    data: [10, 5, 5, 8, 12, 55, 15],
-                    borderColor: '#818cf8', backgroundColor: 'rgba(129, 140, 248, 0.2)', fill: true, tension: 0.4
+                    label: 'Avg Rev (NIS)',
+                    data: [1250, 1100, 1150, 1300, 1400, 4500, 1500],
+                    backgroundColor: ['#475569', '#475569', '#475569', '#475569', '#475569', '#4ade80', '#facc15'],
+                    borderRadius: 4
                 }]
             },
             options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: '#334155' } }, x: { grid: { display: false } } } }
         });
 
-        // --- SIMULATOR LOGIC ---
+        // 3. Monthly Revenue Volatility (Line)
+        new Chart(document.getElementById('monthlyChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Gross Revenue (NIS)',
+                    data: [18145, 20667, 53064, 52003, 72380, 37970, 47800, 45178, 35322, 40793, 41976, 36420],
+                    borderColor: '#38bdf8',
+                    backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#fff',
+                    pointRadius: 4
+                }]
+            },
+            options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: '#334155' } }, x: { grid: { display: false } } } }
+        });
+
+        // --- SIMULATOR ---
         function updateSim() {
             const wDays = parseInt(document.getElementById('input-weekday').value);
             const wEnd = parseInt(document.getElementById('input-weekend').value);
@@ -311,16 +328,12 @@
             document.getElementById('val-fixed').innerText = fixedCost;
 
             const weeks = 4.3;
-            const variableCost = 80; // Estimated per slot
+            const variableCost = 80;
             const totalSlots = (wDays + wEnd) * weeks;
             const grossRev = totalSlots * price;
             const totalExp = fixedCost + (totalSlots * variableCost);
-            
-            // VAT 18%
             const netRev = grossRev / 1.18;
             const ebitda = netRev - totalExp;
-            
-            // Tax 23%
             let tax = ebitda > 0 ? ebitda * 0.23 : 0;
             const netIncome = ebitda - tax;
             const margin = grossRev > 0 ? (netIncome / grossRev) * 100 : 0;
@@ -339,7 +352,6 @@
                 document.getElementById('profit-indicator').style.backgroundColor = '#ef4444';
             }
         }
-        
         document.querySelectorAll('input').forEach(el => el.addEventListener('input', updateSim));
         updateSim();
         function resetSim() {
