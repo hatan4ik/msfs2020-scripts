@@ -32,5 +32,5 @@ export default function(payload) {
   const t = Date.UTC(y, n.getMonth(), n.getDate());
 
   // Check previous, current, and next year matches
-  return [y - 1, y, y + 1].some(yr => Math.abs((t - Date.UTC(yr, m, d)) / 864e5) <= 7);
+  return [y - 1, y, y + 1].some(yr => Math.abs((t - Date.UTC(yr, m, d)) / 864e5) <= 30);
 }
