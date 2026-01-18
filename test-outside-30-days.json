@@ -1,0 +1,26 @@
+{
+  "submission": {
+    "submitter": {
+      "memberId": "53cd211a-767e-d7cc-9d1c-6c18d3d58110"
+    },
+    "createdDate": "2025-01-15T23:30:41.0Z",
+    "submissions": {
+      "first_name": "Jane",
+      "email": "jane@example.com",
+      "last_name": "Smith",
+      "form_field_1": "2000-05-20",
+      "phone": "555-5678"
+    }
+  },
+  "member": {
+    "loginEmail": "jane@example.com",
+    "privacyStatus": "PUBLIC",
+    "id": "4cdbc9d8-044b-433d-bc28-1138d2d983c8",
+    "activityStatus": "ACTIVE",
+    "profile": {
+      "nickname": "Jane Smith",
+      "slug": "janesmith"
+    },
+    "status": "APPROVED"
+  }
+}
